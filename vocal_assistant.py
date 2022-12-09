@@ -1,11 +1,24 @@
 """File that contains the vocal assitant class"""
-
+from time import sleep
+import speech_recognition as sr
+import pyttsx3
+import os
+from AppOpener import run
 
 class Assistent():
     def __init__(self, name: str, gender: str, speech_speed: int = 1.25):
         self.name = name
         self.gender = gender
         self.speech_speed = speech_speed
+
+
+    def speak(text):
+        engine = pyttsx3.init()
+        engine.say(text)
+        engine.runAndWait()
+
+    def get_audio():
+
         
     def change_name(self, new_name):
         self.name = new_name
@@ -40,13 +53,23 @@ class Assistent():
     
     def execute_request(self):
         return "Your request will be execute"
+   
     
-    
-x = Assistent("John", "male", 3)
+x = Assistent("John", "Ana", 2)
+
+x.speak("Hey there, my name is" + self.name)
+
+x.sleep(0.5)
+x.speak("Just say, Hey Helen, and I'll see what I can do for you.")
+
+while True:
+    text = get_audio().lower();
+
+
 
 # ----------- test ------------------
 
-print(x.change_name("Hellen"))
+print(x.change_name("Pedro"))
 print(x.change_gender("female"))
 print(x.get_gender())
 print(x.listen_for_request())
