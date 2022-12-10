@@ -10,14 +10,27 @@ class Assistent():
         self.name = name
         self.gender = gender
         self.speech_speed = speech_speed
+        self.engine_speak = pyttsx3.init()
 
 
-    def speak(text):
-        engine = pyttsx3.init()
-        engine.say(text)
-        engine.runAndWait()
+    def speak(self, text):
+        self.engine_speak.say(text)
+        self.engine_speak.runAndWait()
 
-    def get_audio():
+    def get_audio(self):
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            audio = r.listen(source)
+            said = ""
+
+            try:
+                said = r.recognize_google(audio)
+                print(said)
+            except Exception as e:
+                print("Exception: " + str(e))
+                said = "Sorry, could not undersand you"
+
+        return said
 
         
     def change_name(self, new_name):
@@ -26,7 +39,7 @@ class Assistent():
     
     
     def get_name(self):
-        return "Hello there ! My name is " + self.name
+        return self.name
     
     
     def change_gender(self, new_gender):
@@ -55,22 +68,14 @@ class Assistent():
         return "Your request will be execute"
    
     
-x = Assistent("John", "Ana", 2)
+    def welcome(self):
+        return "You welcome"
 
-x.speak("Hey there, my name is" + self.name)
-
-x.sleep(0.5)
-x.speak("Just say, Hey Helen, and I'll see what I can do for you.")
-
-while True:
-    text = get_audio().lower();
+    
+    def like(self):
+        return "I like to help you and make you life easier"
 
 
-
-# ----------- test ------------------
-
-print(x.change_name("Pedro"))
-print(x.change_gender("female"))
-print(x.get_gender())
-print(x.listen_for_request())
-print(x.execute_request())
+    def kind_response(self):
+        return "This is my job, I will be always with you"
+    
