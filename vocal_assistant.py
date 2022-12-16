@@ -6,11 +6,12 @@ import os
 from AppOpener import run
 
 class Assistent():
-    def __init__(self, name: str, gender: str, speech_speed: int = 1.25):
+    def __init__(self, name: str, gender: str, speech_speed: int = 125):
         self.name = name
         self.gender = gender
         self.speech_speed = speech_speed
         self.engine_speak = pyttsx3.init()
+        self.engine_speak.setProperty('rate', self.speech_speed)
 
 
     def speak(self, text):

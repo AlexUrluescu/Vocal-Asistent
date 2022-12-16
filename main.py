@@ -1,6 +1,6 @@
 from vocal_assistant import *
 
-x = Assistent("Helen", "female", 2)
+x = Assistent("Helen", "female", 200)
 
 x.speak(f"Hey there, my name is {x.get_name()}" )
 
@@ -28,6 +28,8 @@ while True:
             text = x.get_audio().lower()
             if "kind" in text and "helen" in text:
                 x.speak(x.kind_response())
+        if "name" in text:
+            x.speak("My names is " + x.get_name())
         if "stop" in text:
             x.speak(f"I will stop now. Bye bye!")
             break
