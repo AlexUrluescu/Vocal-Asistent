@@ -7,12 +7,14 @@ x.speak(f"Hey there, my name is {x.get_name()}" )
 sleep(0.5)
 x.speak(f"Just say, Hey {x.get_name()}, and I'll see what I can do for you.")
 
+x.write("Welcome Carina")
+
 while True:
     text = x.get_audio().lower()
     if "helen" in text:
         x.speak("What can I do for you")
         text = x.get_audio().lower()
-        print(text)
+        x.write(text)
         if "gender" in text:
             x.speak({x.get_gender()})
             x.speak("Do you want to know anything else")

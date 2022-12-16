@@ -3,6 +3,7 @@ from time import sleep
 import speech_recognition as sr
 import pyttsx3
 import os
+from pynput.keyboard import Key, Controller
 from AppOpener import run
 
 class Assistent():
@@ -12,6 +13,13 @@ class Assistent():
         self.speech_speed = speech_speed
         self.engine_speak = pyttsx3.init()
         self.engine_speak.setProperty('rate', self.speech_speed)
+        self.engine_keyboard = Controller()
+
+    
+    def write(self, text):
+        sleep(2)
+        self.engine_keyboard.type(text)
+
 
 
     def speak(self, text):
