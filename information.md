@@ -18,6 +18,6 @@
 
 
 ## Diferent ways to install the libraries
-1. <b>Global</b>: We open the Command Prompt (cmd) for Windows and there we install all the libraries we need. The libraries will be installed on the PC and we can use them in all our projects. After installed them we can use them on our projects, we not have to install them on the terminal of the compiler.
+1. <b>Global</b>: We open the Command Prompt (cmd) for Windows and there we install all the libraries we need. The libraries will be installed on the PC and we can use them in all our projects. After installed them we can use them on our projects, we not have to install them on the terminal of the editor (VSCODE).
 
-2. <b>Local</b>: We open the compiler terminal and install all the libraries we need there. We install only the libraries we need for a specific project. If we install the libraries on the terminal of a specific project only that project will have this libraries. If you want to have another project with the same libraries, you must install them again on the compiler terminal of that project.
+2. <b>Local</b>: We open the compiler terminal and install all the libraries we need there. We install only the libraries we need for a specific project. If we install the libraries on the terminal of a specific project only that project will have this libraries. If you want to have another project with the same libraries, you must install them again on the editor terminal of that project.
