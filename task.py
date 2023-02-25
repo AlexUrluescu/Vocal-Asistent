@@ -10,7 +10,7 @@ import os
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open", "next", "previous slide", "temperature", "time", "date", 'thank you']
+        self.task_list = [assistant_name, "powerpoint", "next", "previous slide", "temperature", "time", "date", 'thank you', "open"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -31,16 +31,21 @@ class Task():
         string = string.split(" ")[-1]
         terminal_print(f"se deschide {string}")
 
-        leter = "C"
-        path = "C:\projectsPowerPoint"
-        file = "prezentare.pptx"
-
-        # descoperire NOUA !!!
-        os.system(f"start powerpnt /{leter} {path}/{file}")
+        os.system("start powerpnt")
      
         # run(string)
         
+    def open_PowerPointfile(self, string):
 
+        string = string.split(" ")[-1]
+
+        leter = "C"
+        path = "C:\projectsPowerPoint"
+        file = f"{string}.pptx"
+        print(file)
+
+        # descoperire NOUA !!!
+        os.system(f"start powerpnt /{leter} {path}/{file}")
 
     
     def next_slide(self):

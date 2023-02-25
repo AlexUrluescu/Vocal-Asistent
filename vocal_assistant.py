@@ -8,6 +8,7 @@ from AppOpener import run
 from util import terminal_print
 import task 
 from datetime import date, datetime
+
 class Assistent():
     def __init__(self, name: str, gender: str, speech_speed: int = 125):
         self.name = name
@@ -78,12 +79,15 @@ class Assistent():
         return self.speech_speed
     
 
-    def run_task(self, task_index):
+    def run_task(self, task_index, text):
         if task_index == 0:
             self.speak('What can I do for you?')
         
         if task_index == 1:
-            self.task_manager.open_app()
+            self.task_manager.open_app(text)
+
+            sleep(2)
+            self.speak("Your App was open successfully")
         
         if task_index == 2:
             self.task_manager.next_slide()
@@ -107,3 +111,9 @@ class Assistent():
 
         if task_index == 7:
             self.speak('You welcome')
+
+        if task_index == 8:
+            self.task_manager.open_PowerPointfile(text)
+
+            sleep(2)
+            self.speak("Your project was open successfully")
