@@ -10,7 +10,7 @@ import os
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "powerpoint", "next", "previous slide", "temperature", "time", "date", 'thank you', "open"]
+        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -50,18 +50,18 @@ class Task():
     
     def next_slide(self):
         terminal_print("Se executa functia next_slide")
-        sleep(5)
-        self.keyboard.press("a")
-        self.keyboard.release("a")
-        self.keyboard.press(Key.right)
-        self.keyboard.release(Key.right)
+        sleep(2)
+        # self.keyboard.press("a")
+        # self.keyboard.release("a")
+        self.keyboard.press(Key.down)
+        self.keyboard.release(Key.down)
 
 
     def previous_slide(self):
         terminal_print("Se executa functia previous_slide")
         sleep(5)
-        self.keyboard.press(Key.left)
-        self.keyboard.release(Key.left)
+        self.keyboard.press(Key.up)
+        self.keyboard.release(Key.up)
 
     def get_temperature(self):
         terminal_print("Se executa functia get_temperature")
