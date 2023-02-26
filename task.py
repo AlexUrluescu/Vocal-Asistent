@@ -10,7 +10,7 @@ import os
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open project", "open new", "close"]
+        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open", "open new", "close"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -34,6 +34,7 @@ class Task():
         os.system("start powerpnt")
      
         # run(string)
+
         
     def open_PowerPointfile(self, string):
 
@@ -75,7 +76,7 @@ class Task():
 
     def previous_slide(self):
         terminal_print("Se executa functia previous_slide")
-        sleep(5)
+        sleep(2)
         self.keyboard.press(Key.up)
         self.keyboard.release(Key.up)
 
