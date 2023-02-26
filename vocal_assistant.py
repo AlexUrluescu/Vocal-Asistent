@@ -123,3 +123,8 @@ class Assistent():
 
             sleep(2)
             self.speak("Your new project was open successfully")
+
+        if task_index == 10:
+            self.speak("I will close the file")
+            self.task_manager.close_file()
+

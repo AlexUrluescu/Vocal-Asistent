@@ -10,7 +10,7 @@ import os
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open project", "open new"]
+        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open project", "open new", "close"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -50,6 +50,18 @@ class Task():
 
     def open_new_project(self):
         os.system("start powerpnt /B")
+
+    
+    def close_file(self):
+        terminal_print("Se executa functia close_file")
+        sleep(2)
+
+        # combination = {Key.alt, Key.f4}
+    
+        self.keyboard.press(Key.alt)
+        self.keyboard.press(Key.f4)
+        self.keyboard.release(Key.alt)
+        self.keyboard.release(Key.f4)
 
     
     def next_slide(self):
