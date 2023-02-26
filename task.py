@@ -10,7 +10,7 @@ import os
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open"]
+        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open project", "open new"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -46,6 +46,10 @@ class Task():
 
         # descoperire NOUA !!!
         os.system(f"start powerpnt /{leter} {path}/{file}")
+
+
+    def open_new_project(self):
+        os.system("start powerpnt /B")
 
     
     def next_slide(self):

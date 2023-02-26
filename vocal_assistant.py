@@ -117,3 +117,9 @@ class Assistent():
 
             sleep(2)
             self.speak("Your project was open successfully")
+
+        if task_index == 9:
+            self.task_manager.open_new_project()
+
+            sleep(2)
+            self.speak("Your new project was open successfully")
