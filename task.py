@@ -10,7 +10,7 @@ import os
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open", "open new", "close"]
+        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open word", "open new", "close", "new word file", "open"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -24,7 +24,14 @@ class Task():
                 return task_index
         
         return -127
+    
 
+    def open_word(self):
+        os.system("start winword")
+
+    
+    def new_word_file(self):
+        os.system("start winword /w")
 
 
     def open_app(self, string):
@@ -67,7 +74,7 @@ class Task():
     
     def next_slide(self):
         terminal_print("Se executa functia next_slide")
-        sleep(2)
+        sleep(1)
         # self.keyboard.press("a")
         # self.keyboard.release("a")
         self.keyboard.press(Key.down)
@@ -76,7 +83,7 @@ class Task():
 
     def previous_slide(self):
         terminal_print("Se executa functia previous_slide")
-        sleep(2)
+        sleep(1)
         self.keyboard.press(Key.up)
         self.keyboard.release(Key.up)
 

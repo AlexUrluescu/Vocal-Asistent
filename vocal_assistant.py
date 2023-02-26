@@ -113,10 +113,8 @@ class Assistent():
             self.speak('You welcome')
 
         if task_index == 8:
-            self.task_manager.open_PowerPointfile(text)
-
-            sleep(2)
-            self.speak("Your project was open successfully")
+            self.speak("I will open word office")
+            self.task_manager.open_word()
 
         if task_index == 9:
             self.task_manager.open_new_project()
@@ -128,3 +126,13 @@ class Assistent():
             self.speak("I will close the file")
             self.task_manager.close_file()
 
+        if task_index == 11:
+            self.speak("I will open a new word file")
+            self.task_manager.new_word_file()
+
+      
+        if task_index == 12:
+            self.task_manager.open_PowerPointfile(text)
+
+            sleep(2)
+            self.speak("Your project was open successfully")        
