@@ -1,5 +1,12 @@
-from pynput.keyboard import Key, Controller
 
-keyboard = Controller()
+from pywinauto import Desktop
 
-keyboard.type("Welcome Carina")
+lista = []
+
+windows = Desktop(backend="uia").windows()
+
+for w in windows:
+    lista.append(w.window_text())
+    print(w.window_text())
+
+print(lista)
