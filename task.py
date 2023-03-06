@@ -13,7 +13,7 @@ import win32gui, win32com.client
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open word", "open new", "close", "new word file", "open", "active"]
+        self.task_list = [assistant_name, "/", "next", "previous", "temperature", "time", "date", 'thank you', "/", "/", "close", "new word file", "open", "active"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -37,22 +37,18 @@ class Task():
         topwindows = []
 
         win32gui.EnumWindows(self.loadwindowslist, topwindows)
+
         for hwin in topwindows:
-            print("a intrat 1")
             sappname = str(hwin[1])
             if swinname in sappname.lower():
-                print("a intrat 2")
                 nhwnd = hwin[0]
                 print(type(nhwnd))
                 print(">>> Found: " + str(nhwnd) + ": " + sappname)
                 if(bshow):
-                    print("a intrat 3")
                     win32gui.ShowWindow(nhwnd, 5)
-                    print("a intrat 4")
                     shell = win32com.client.Dispatch("WScript.Shell")
                     shell.SendKeys('%')
                     win32gui.SetForegroundWindow(nhwnd)
-                    print("a intrat 5")
                 if(bbreak):
                     break
 
@@ -67,8 +63,27 @@ class Task():
             lista.append(w.window_text().lower())
             print(w.window_text())
 
-        print(lista)
+        print(f"{lista} nr 1")
         print(string)
+
+        # ---------- change the name of word and powerpoint -----------
+        i=0
+
+        while i < len(lista):
+            print("a intrat in while")
+            if(lista[i] == "powerpoint (produs nelicențiat)"):
+                lista[i] = "powerpoint"
+                print("am gasit powerpoint")
+
+            if(lista[i] == "word (produs nelicențiat)"):
+                lista[i] = "word"
+                print("am gasit word")
+        
+            i=i+1
+
+        # ---------------------------------------------------
+
+        print(f"{lista} nr 2")
 
         if string in lista:
             self.findandshowwindow(string, True, True)
@@ -76,6 +91,10 @@ class Task():
 
         else:
             print("doesn't exist")
+
+    
+    def open(self, string):
+        pass
     
 
     def open_word(self):
@@ -114,14 +133,15 @@ class Task():
     
     def close_file(self):
         terminal_print("Se executa functia close_file")
-        sleep(2)
+        sleep(1)
 
         # combination = {Key.alt, Key.f4}
-    
+        print("se inchide")
         self.keyboard.press(Key.alt)
         self.keyboard.press(Key.f4)
         self.keyboard.release(Key.alt)
         self.keyboard.release(Key.f4)
+        print("s-a inchis")
 
     
     def next_slide(self):
