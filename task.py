@@ -6,11 +6,14 @@ from AppOpener import run
 from pynput.keyboard import Key, Controller
 from time import sleep
 import os
+from pywinauto import Desktop
+import win32gui, win32com.client
+
 
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open word", "open new", "close", "new word file", "open"]
+        self.task_list = [assistant_name, "powerpoint", "next", "previous", "temperature", "time", "date", 'thank you', "open word", "open new", "close", "new word file", "open", "active"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -24,6 +27,55 @@ class Task():
                 return task_index
         
         return -127
+    
+            
+    def loadwindowslist(self, hwnd, topwindows):
+        topwindows.append((hwnd, win32gui.GetWindowText(hwnd)))
+        
+    
+    def findandshowwindow(self, swinname, bshow, bbreak):
+        topwindows = []
+
+        win32gui.EnumWindows(self.loadwindowslist, topwindows)
+        for hwin in topwindows:
+            print("a intrat 1")
+            sappname = str(hwin[1])
+            if swinname in sappname.lower():
+                print("a intrat 2")
+                nhwnd = hwin[0]
+                print(type(nhwnd))
+                print(">>> Found: " + str(nhwnd) + ": " + sappname)
+                if(bshow):
+                    print("a intrat 3")
+                    win32gui.ShowWindow(nhwnd, 5)
+                    print("a intrat 4")
+                    shell = win32com.client.Dispatch("WScript.Shell")
+                    shell.SendKeys('%')
+                    win32gui.SetForegroundWindow(nhwnd)
+                    print("a intrat 5")
+                if(bbreak):
+                    break
+
+
+    def focus(self, string):
+        string = string.split(" ")[-1]
+        lista = []
+
+        windows = Desktop(backend="uia").windows()
+
+        for w in windows:
+            lista.append(w.window_text().lower())
+            print(w.window_text())
+
+        print(lista)
+        print(string)
+
+        if string in lista:
+            self.findandshowwindow(string, True, True)
+            print(f"{string} exist")
+
+        else:
+            print("doesn't exist")
     
 
     def open_word(self):

@@ -135,4 +135,9 @@ class Assistent():
             self.task_manager.open_PowerPointfile(text)
 
             sleep(2)
-            self.speak("Your project was open successfully")        
+            self.speak("Your project was open successfully")  
+
+
+        if task_index == 13:
+            self.speak("Focus active")
+            self.task_manager.focus(text)      
