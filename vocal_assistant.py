@@ -132,10 +132,9 @@ class Assistent():
 
       
         if task_index == 12:
-            self.task_manager.open_PowerPointfile(text)
-
-            sleep(2)
-            self.speak("Your project was open successfully")  
+            # self.task_manager.open_PowerPointfile(text)
+            self.speak("I will open the file")
+            self.task_manager.open(text)
 
 
         if task_index == 13:
