@@ -94,7 +94,21 @@ class Task():
 
     
     def open(self, string):
-        pass
+        
+        string = string.split(" ")[-1]
+        print("se executa functia open")
+
+        if(string == "powerpoint"):
+            print("a intrat in powerpoint")
+            os.system("start powerpnt")
+
+        if(string == "word"):
+            print("a intrat in word")
+            os.system("start winword")
+
+        if(string == "notepad"):
+            print("a intrat in notepad")
+            run(string)
     
 
     def open_word(self):
