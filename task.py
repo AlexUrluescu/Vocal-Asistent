@@ -106,8 +106,8 @@ class Task():
             print("a intrat in word")
             os.system("start winword")
 
-        if(string == "notepad"):
-            print("a intrat in notepad")
+        else:
+            print(f"a intrat in {string}")
             run(string)
 
 
