@@ -120,9 +120,6 @@ class Assistent():
             self.speak("I will minimize the window")
             self.task_manager.minimise()
 
-            sleep(2)
-            self.speak("Your new project was open successfully")
-
         if task_index == 10:
             self.speak("I will close the file")
             self.task_manager.close_file()
@@ -140,4 +137,9 @@ class Assistent():
 
         if task_index == 13:
             self.speak("Focus active")
-            self.task_manager.focus(text)      
+            self.task_manager.focus(text)
+
+
+        if task_index == 14:
+            self.speak("I will maximize the window")
+            self.task_manager.maximise()     
