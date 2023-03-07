@@ -113,8 +113,8 @@ class Assistent():
             self.speak('You welcome')
 
         if task_index == 8:
-            self.speak("I will open word office")
-            self.task_manager.open_word()
+            self.speak("I will open a new file")
+            self.task_manager.open_new_file(text)
 
         if task_index == 9:
             self.task_manager.open_new_project()
