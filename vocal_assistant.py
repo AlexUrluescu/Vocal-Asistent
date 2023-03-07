@@ -117,7 +117,8 @@ class Assistent():
             self.task_manager.open_new_file(text)
 
         if task_index == 9:
-            self.task_manager.open_new_project()
+            self.speak("I will minimize the window")
+            self.task_manager.minimise()
 
             sleep(2)
             self.speak("Your new project was open successfully")
