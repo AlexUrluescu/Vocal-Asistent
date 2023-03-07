@@ -13,7 +13,7 @@ import win32gui, win32com.client
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "/", "next", "previous", "temperature", "time", "date", 'thank you', "/", "/", "close", "new word file", "open", "active"]
+        self.task_list = [assistant_name, "/", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "/", "close", "new word file", "open", "active"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -109,7 +109,17 @@ class Task():
         if(string == "notepad"):
             print("a intrat in notepad")
             run(string)
-    
+
+
+    def open_new_file(self, string):
+        string = string.split(" ")[-1]
+
+        if(string == "powerpoint"):
+            os.system("start powerpnt /B")
+
+        if(string == "word"):
+            os.system("start winword /w")
+        
 
     def open_word(self):
         os.system("start winword")
