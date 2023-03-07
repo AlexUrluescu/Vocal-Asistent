@@ -8,12 +8,13 @@ from time import sleep
 import os
 from pywinauto import Desktop
 import win32gui, win32com.client
+import pyautogui
 
 
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "/", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "/", "close", "new word file", "open", "active"]
+        self.task_list = [assistant_name, "/", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -119,23 +120,13 @@ class Task():
 
         if(string == "word"):
             os.system("start winword /w")
-        
 
-    def open_word(self):
-        os.system("start winword")
-
-    
-    def new_word_file(self):
-        os.system("start winword /w")
-
-
-    def open_app(self, string):
-        string = string.split(" ")[-1]
-        terminal_print(f"se deschide {string}")
-
-        os.system("start powerpnt")
      
-        # run(string)
+    def minimise(self):
+        pyautogui.keyDown("win")
+        pyautogui.keyDown("down")
+        pyautogui.keyUp("down")
+        pyautogui.keyUp("win")   
 
         
     def open_PowerPointfile(self, string):
