@@ -139,4 +139,8 @@ class Assistent():
 
         if task_index == 14:
             self.speak("I will maximize the window")
-            self.task_manager.maximise()     
+            self.task_manager.maximise()
+
+        if task_index == 15:
+            self.speak("I will active the presentation mode")
+            self.task_manager.presentation_mode() 
