@@ -144,3 +144,7 @@ class Assistent():
         if task_index == 15:
             self.speak("I will active the presentation mode")
             self.task_manager.presentation_mode() 
+
+        if task_index == 16:
+            self.speak("I will deactivate the presentation mode")
+            self.task_manager.finish_presentation()
