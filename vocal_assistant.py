@@ -84,10 +84,7 @@ class Assistent():
             self.speak('What can I do for you?')
         
         if task_index == 1:
-            self.task_manager.open_app(text)
-
-            sleep(2)
-            self.speak("Your App was open successfully")
+            self.task_manager.open_presentation(text)
         
         if task_index == 2:
             self.task_manager.next_slide()
