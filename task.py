@@ -14,7 +14,7 @@ import pyautogui
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "/", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise"]
+        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -72,11 +72,11 @@ class Task():
 
         while i < len(lista):
             print("a intrat in while")
-            if(lista[i] == "powerpoint (produs nelicențiat)"):
+            if("powerpoint" in lista[i]):
                 lista[i] = "powerpoint"
                 print("am gasit powerpoint")
 
-            if(lista[i] == "word (produs nelicențiat)"):
+            if("word" in lista[i]):
                 lista[i] = "word"
                 print("am gasit word")
         
@@ -136,7 +136,7 @@ class Task():
         pyautogui.keyUp("win")
 
         
-    def open_PowerPointfile(self, string):
+    def open_presentation(self, string):
 
         string = string.split(" ")[-1]
 
@@ -147,10 +147,6 @@ class Task():
 
         # descoperire NOUA !!!
         os.system(f"start powerpnt /{leter} {path}/{file}")
-
-
-    def open_new_project(self):
-        os.system("start powerpnt /B")
 
     
     def close_file(self):
@@ -169,8 +165,7 @@ class Task():
     def next_slide(self):
         terminal_print("Se executa functia next_slide")
         sleep(1)
-        # self.keyboard.press("a")
-        # self.keyboard.release("a")
+        
         self.keyboard.press(Key.down)
         self.keyboard.release(Key.down)
 
