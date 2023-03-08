@@ -14,7 +14,7 @@ import pyautogui
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise"]
+        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -147,6 +147,13 @@ class Task():
 
         # descoperire NOUA !!!
         os.system(f"start powerpnt /{leter} {path}/{file}")
+
+
+    def presentation_mode(self):
+        pyautogui.keyDown("win")
+        pyautogui.keyDown("f5")
+        pyautogui.keyUp("f5")
+        pyautogui.keyUp("win") 
 
     
     def close_file(self):
