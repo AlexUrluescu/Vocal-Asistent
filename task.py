@@ -14,7 +14,7 @@ import pyautogui
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode"]
+        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -153,7 +153,13 @@ class Task():
         pyautogui.keyDown("win")
         pyautogui.keyDown("f5")
         pyautogui.keyUp("f5")
-        pyautogui.keyUp("win") 
+        pyautogui.keyUp("win")
+
+    
+    def finish_presentation(self):
+        pyautogui.keyDown("esc")
+        pyautogui.keyUp("esc")
+        print("finish a mers")
 
     
     def close_file(self):
