@@ -9,6 +9,7 @@ import os
 from pywinauto import Desktop
 import win32gui, win32com.client
 import pyautogui
+import requests
 
 
 class Task():
@@ -189,8 +190,23 @@ class Task():
         self.keyboard.press(Key.up)
         self.keyboard.release(Key.up)
 
-    def get_temperature(self):
+    def get_temperature(self, string):
+
+        string = string.split(" ")[-1]
+
         terminal_print("Se executa functia get_temperature")
+
+        api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
+        city = string
+
+        weather_data = requests.get(
+            f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}")
+        
+        data = weather_data.json()
+        print(data)
+        temp = data['main']['temp']
+        temp = int(temp) / 3.78
+        print(int(temp))
     
 
     def time(self):
