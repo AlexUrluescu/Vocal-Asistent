@@ -93,7 +93,7 @@ class Assistent():
             self.task_manager.previous_slide()
 
         if task_index == 4:
-            self.task_manager.get_temperature()
+            self.task_manager.get_temperature(text)
 
         if task_index == 5:
             now = datetime.now()
