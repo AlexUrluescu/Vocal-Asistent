@@ -8,6 +8,7 @@ from AppOpener import run
 from util import terminal_print
 import task 
 from datetime import date, datetime
+import webbrowser
 
 class Assistent():
     def __init__(self, name: str, gender: str, speech_speed: int = 125):
@@ -163,3 +164,13 @@ class Assistent():
             self.speak(f"{string} is in {region}, exacty in {subregion}")
             sleep(0.3)
             self.speak(f"{string} has {population} milion of people, and the capital is {capital}")
+
+        
+        if task_index == 18:
+            string = text.split(" ")[-1]
+
+            self.speak(f"I will open maps for {string}")
+
+            country_maps = self.task_manager.open_maps(text)
+
+            webbrowser.open(country_maps)
