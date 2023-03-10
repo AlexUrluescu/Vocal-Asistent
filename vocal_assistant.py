@@ -152,3 +152,14 @@ class Assistent():
         if task_index == 16:
             self.speak("I will deactivate the presentation mode")
             self.task_manager.finish_presentation()
+
+        if task_index == 17:
+            string = text.split(" ")[-1]
+            print(string)
+            self.speak(f"Details about {string}")
+
+            population, capital, region, subregion = self.task_manager.get_country(text)
+
+            self.speak(f"{string} is in {region}, exacty in {subregion}")
+            sleep(0.3)
+            self.speak(f"{string} has {population} milion of people, and the capital is {capital}")
