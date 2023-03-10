@@ -15,7 +15,7 @@ import requests
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about"]
+        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -242,6 +242,20 @@ class Task():
 
         return population, capital, region, subregion
     
+
+    def open_maps(self, string):
+        string = string.split(" ")[-1]
+
+        country_data = requests.get(
+            f"https://restcountries.com/v3.1/name/{string}?fullText=true")
+        
+        country_data = country_data.json()
+
+        country_maps = country_data[0]['maps']['googleMaps']
+
+        print(country_maps)
+
+        return country_maps
 
     def time(self):
         terminal_print("Se executa functia time")
