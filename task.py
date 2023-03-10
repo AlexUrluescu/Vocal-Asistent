@@ -206,7 +206,9 @@ class Task():
         print(data)
         temp = data['main']['temp']
         temp = int(temp) / 3.78
-        print(int(temp))
+        print(temp)
+
+        return int(temp)
     
 
     def time(self):
