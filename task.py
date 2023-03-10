@@ -15,7 +15,7 @@ import requests
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish"]
+        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -209,6 +209,38 @@ class Task():
         print(temp)
 
         return int(temp)
+    
+
+    def get_country(self, string):
+        string = string.split(" ")[-1]
+
+        country_data = requests.get(
+            f"https://restcountries.com/v3.1/name/{string}?fullText=true")
+        
+        country_data = country_data.json()
+
+        population = str(country_data[0]['population'])
+        if(len(population) == 9):
+            population = population[0:3]
+        elif(len(population) == 8):
+            population = population[0:2]
+        
+        elif(len(population) == 7):
+            population = population[0:1]
+
+        name = country_data[0]['name']['common']
+        capital = country_data[0]['capital'][0]
+        region = country_data[0]['region']
+        subregion = country_data[0]['subregion']
+ 
+        print(country_data)
+        print(population)
+        print(name)
+        print(capital)
+        print(region)
+        print(subregion)
+
+        return population, capital, region, subregion
     
 
     def time(self):
