@@ -9,9 +9,10 @@ from util import terminal_print
 import task 
 from datetime import date, datetime
 import webbrowser
+# import weather
 
 class Assistent():
-    def __init__(self, name: str, gender: str, speech_speed: int = 125):
+    def __init__(self, name: str, gender: str, speech_speed: int = 100):
         self.name = name
         self.gender = gender
         self.speech_speed = speech_speed
@@ -19,6 +20,7 @@ class Assistent():
         self.engine_speak.setProperty('rate', self.speech_speed)
         self.engine_keyboard = Controller()
         self.task_manager = task.Task(self.name.lower())
+        # self.task_weather_manager = weather.Weather(self.name.lower())
 
     
     def write(self, text):
@@ -174,3 +176,19 @@ class Assistent():
             country_maps = self.task_manager.open_maps(text)
 
             webbrowser.open(country_maps)
+
+        if task_index == 19:
+            string = text.split(" ")[-1]
+
+            main, temperature, wind_speed = self.task_manager.weather(text)
+
+            if(main == "Clouds"):
+                main = "cloudy"
+
+            elif(main == "Mist"):
+                main = "misty"
+
+            elif(main == "Fog"):
+                main = "fogy"
+
+            self.speak(f"In {string} the weather is {main} and are {temperature} degrees")
