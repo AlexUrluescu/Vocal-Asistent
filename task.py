@@ -15,7 +15,7 @@ import requests
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps"]
+        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather']
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -210,6 +210,29 @@ class Task():
 
         return int(temp)
     
+    
+    def weather(self, string):
+        city = string.split(" ")[-1]
+
+        api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
+
+        weather_data = requests.get(
+            f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}")
+
+        weather_data = weather_data.json()
+
+        temperature = round(int(weather_data['main']['temp'])/3.78)
+        main = weather_data['weather'][0]['main']
+        wind_speed = round(weather_data['wind']['speed'])
+
+        print(temperature)
+        print(main)
+        print(wind_speed)
+    
+        return main, temperature, wind_speed
+
+    # def weather(self, text):
+    #     self.task_weather_manager()
 
     def get_country(self, string):
         string = string.split(" ")[-1]
