@@ -15,7 +15,7 @@ import os.path
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping']
+        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping', 'add']
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -45,6 +45,15 @@ class Task():
 
         print('shopping list apelat')
         return state
+    
+
+    def add_products(self, text):
+        string = text.split(" ")[-1]
+                
+        file = open("shopping_list.txt", "a")
+        file.write(f"{string}\n")
+
+        return string
     
             
     def loadwindowslist(self, hwnd, topwindows):
