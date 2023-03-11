@@ -192,3 +192,16 @@ class Assistent():
                 main = "fogy"
 
             self.speak(f"In {string} the weather is {main} and are {temperature} degrees")
+
+        
+        if task_index == 20:
+            state = self.task_manager.shopping_list()
+
+            if(state):
+                self.speak("The shopping list it's ready")
+            
+            else:
+                self.speak("The shopping list was created")
+
+            sleep(0.2)
+            self.speak("What do you want to add?")
