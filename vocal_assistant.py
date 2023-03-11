@@ -205,3 +205,10 @@ class Assistent():
 
             sleep(0.2)
             self.speak("What do you want to add?")
+
+        
+        if task_index == 21:
+            string = self.task_manager.add_products(text)
+
+            print(string)
+            self.speak(f"{string} was added in your shopping list")
