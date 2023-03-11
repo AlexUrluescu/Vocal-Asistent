@@ -10,12 +10,12 @@ from pywinauto import Desktop
 import win32gui, win32com.client
 import pyautogui
 import requests
-
+import os.path
 
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather']
+        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping']
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -29,6 +29,22 @@ class Task():
                 return task_index
         
         return -127
+    
+    def shopping_list(self):
+        state = False
+
+        if(os.path.isfile("./shopping_list.txt") == False):
+            file = open("shopping_list.txt", "x")
+            print("s-a creat")
+
+            file.close()
+
+        elif(os.path.isfile("./shopping_list.txt")):
+            state = True
+            print("it's ready")
+
+        print('shopping list apelat')
+        return state
     
             
     def loadwindowslist(self, hwnd, topwindows):
