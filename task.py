@@ -11,6 +11,7 @@ import win32gui, win32com.client
 import pyautogui
 import requests
 import os.path
+from datetime import date, datetime
 
 class Task():
 
@@ -316,6 +317,10 @@ class Task():
 
     def time(self):
         terminal_print("Se executa functia time")
+        now = datetime.now()
+        ora = now.strftime("%H:%M:%S")
+
+        return ora
     
 
     def date(self, data):
