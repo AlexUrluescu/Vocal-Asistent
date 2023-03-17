@@ -323,9 +323,11 @@ class Task():
         return ora
     
 
-    def date(self, data):
+    def date(self):
         terminal_print("Se executa functia date")
-        terminal_print(data)
+        data = date.today()
+
+        return data
 
     
     def thank_you(self):
