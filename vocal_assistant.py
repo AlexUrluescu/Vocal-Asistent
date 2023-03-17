@@ -135,9 +135,9 @@ class Assistent():
 
 
         if task_index == 6:
-            data = date.today()
+            data = self.task_manager.date()
             self.speak(data)
-            self.task_manager.date(data)
+
 
         if task_index == 7:
             self.speak('You welcome')
