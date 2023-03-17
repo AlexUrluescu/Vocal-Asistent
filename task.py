@@ -15,7 +15,7 @@ import os.path
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping', 'add']
+        self.task_list = [assistant_name, "open my presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping', 'add', 'directory']
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -161,19 +161,25 @@ class Task():
         pyautogui.keyUp("up")
         pyautogui.keyUp("win")
 
-        
-    def open_presentation(self, string):
 
-        string = string.split(" ")[-1]
+    def open_my_presentation(self):
+        print("open_mt_presentation is activ")
 
-        leter = "C"
         path = "C:\projectsPowerPoint"
-        file = f"{string}.pptx"
-        print(file)
+        files = os.listdir(path)
+        list = []
 
-        # descoperire NOUA !!!
-        os.system(f"start powerpnt /{leter} {path}/{file}")
+        for file in files:
+            size = len(file)
+            file = file[:size - 5]
+            print(file)
+            list.append(file)
 
+        print(files)
+        print(list)
+
+        return list, path, files
+    
 
     def presentation_mode(self):
         pyautogui.keyDown("win")
@@ -261,34 +267,36 @@ class Task():
 
     def get_country(self, string):
         string = string.split(" ")[-1]
+        print("se activeaza get_country")
 
-        country_data = requests.get(
-            f"https://restcountries.com/v3.1/name/{string}?fullText=true")
+        # country_data = requests.get(
+        #     f"https://restcountries.com/v3.1/name/{string}?fullText=true")
         
-        country_data = country_data.json()
+        # country_data = country_data.json()
+        # print(country_data)
 
-        population = str(country_data[0]['population'])
-        if(len(population) == 9):
-            population = population[0:3]
-        elif(len(population) == 8):
-            population = population[0:2]
+        # population = str(country_data[0]['population'])
+        # if(len(population) == 9):
+        #     population = population[0:3]
+        # elif(len(population) == 8):
+        #     population = population[0:2]
         
-        elif(len(population) == 7):
-            population = population[0:1]
+        # elif(len(population) == 7):
+        #     population = population[0:1]
 
-        name = country_data[0]['name']['common']
-        capital = country_data[0]['capital'][0]
-        region = country_data[0]['region']
-        subregion = country_data[0]['subregion']
+        # name = country_data[0]['name']['common']
+        # capital = country_data[0]['capital'][0]
+       
+        # subregion = country_data[0]['subregion']
  
-        print(country_data)
-        print(population)
-        print(name)
-        print(capital)
-        print(region)
-        print(subregion)
+        # print(country_data)
+        # print(population)
+        # print(name)
+        # print(capital)
+        # print(region)
+        # print(subregion)
 
-        return population, capital, region, subregion
+        # return population, capital, region, subregion
     
 
     def open_maps(self, string):
@@ -304,6 +312,7 @@ class Task():
         print(country_maps)
 
         return country_maps
+    
 
     def time(self):
         terminal_print("Se executa functia time")
