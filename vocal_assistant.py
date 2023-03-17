@@ -87,7 +87,34 @@ class Assistent():
             self.speak('What can I do for you?')
         
         if task_index == 1:
-            self.task_manager.open_presentation(text)
+            list, path, files = self.task_manager.open_my_presentation()
+            size = len(list)
+            leter = "C"
+
+            if size == 1:
+                file = list[0]
+                self.speak(f"You have {size} file in the folder")
+                self.speak(f"{file}")
+                os.system(f"start powerpnt /{leter} {path}/{files[0]}")
+
+            else:
+                i=1
+                self.speak(f"You have {size} files in the folder")
+                for project in list:
+                    self.speak(f"Say {i} for open {project}")
+                    i = i + 1
+
+            text = self.get_audio()
+            print(type(text))
+            
+            if text == "1":
+                self.speak(f"I will open {list[0]}")
+                os.system(f"start powerpnt /{leter} {path}/{files[0]}")
+            
+            if text == "2":
+                self.speak(f"I will open {list[1]}")
+                os.system(f"start powerpnt /{leter} {path}/{files[1]}")
+
         
         if task_index == 2:
             self.task_manager.next_slide()
@@ -160,12 +187,13 @@ class Assistent():
             string = text.split(" ")[-1]
             print(string)
             self.speak(f"Details about {string}")
+            self.task_manager.get_country(text)
 
-            population, capital, region, subregion = self.task_manager.get_country(text)
+            # population, capital, region, subregion = self.task_manager.get_country(text)
 
-            self.speak(f"{string} is in {region}, exacty in {subregion}")
-            sleep(0.3)
-            self.speak(f"{string} has {population} milion of people, and the capital is {capital}")
+            # self.speak(f"{string} is in {region}, exacty in {subregion}")
+            # sleep(0.3)
+            # self.speak(f"{string} has {population} milion of people, and the capital is {capital}")
 
         
         if task_index == 18:
@@ -212,3 +240,10 @@ class Assistent():
 
             print(string)
             self.speak(f"{string} was added in your shopping list")
+
+        if task_index == 22:
+            files = self.task_manager.get_files()
+            size = len(files)
+
+            self.speak(f"You have {size} projects in the folder")
+   
