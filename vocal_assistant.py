@@ -130,10 +130,9 @@ class Assistent():
             self.speak(f"In {string} are {temp} degrees")
 
         if task_index == 5:
-            now = datetime.now()
-            ora = now.strftime("%H:%M:%S")
+            ora = self.task_manager.time()
             self.speak(ora)
-            self.task_manager.time()
+
 
         if task_index == 6:
             data = date.today()
