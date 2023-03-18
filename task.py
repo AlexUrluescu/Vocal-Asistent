@@ -174,6 +174,8 @@ class Task():
             size = len(file)
             file = file[:size - 5]
             print(file)
+            if "_" in file:
+                file = file.replace("_", " ")
             list.append(file)
 
         print(files)
