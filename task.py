@@ -106,6 +106,10 @@ class Task():
             if("word" in lista[i]):
                 lista[i] = "word"
                 print("am gasit word")
+
+            if("visual studio code" in lista[i]):
+                lista[i] = "code"
+                print("am gasit visual studio code")
         
             i=i+1
 
