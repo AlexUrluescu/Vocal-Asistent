@@ -110,6 +110,10 @@ class Task():
             if("visual studio code" in lista[i]):
                 lista[i] = "code"
                 print("am gasit visual studio code")
+
+            if("edge" in lista[i]):
+                lista[i] = "microsoft"
+                print("am gasit edge")
         
             i=i+1
 
