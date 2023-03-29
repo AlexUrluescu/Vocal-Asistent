@@ -261,6 +261,7 @@ class Task():
     
     def weather(self, string):
         city = string.split(" ")[-1]
+        print(f"Weather in {city}")
 
         api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
 
@@ -269,15 +270,14 @@ class Task():
 
         weather_data = weather_data.json()
 
-        temperature = round(int(weather_data['main']['temp'])/3.78)
+        temperature = round(int(((weather_data['main']['temp'])-32) * 5) / 9)
         main = weather_data['weather'][0]['main']
-        wind_speed = round(weather_data['wind']['speed'])
 
-        print(temperature)
+        print(weather_data)
         print(main)
-        print(wind_speed)
+        print(temperature)
     
-        return main, temperature, wind_speed
+        return main, temperature
 
     # def weather(self, text):
     #     self.task_weather_manager()
