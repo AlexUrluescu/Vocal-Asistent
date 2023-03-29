@@ -155,6 +155,7 @@ class Assistent():
             self.task_manager.close_file()
 
         if task_index == 11:
+            # say "create a new word file"
             self.speak("I will open a new word file")
             self.task_manager.new_word_file()
 
