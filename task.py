@@ -319,14 +319,7 @@ class Task():
     def open_maps(self, string):
         string = string.split(" ")[-1]
 
-        country_data = requests.get(
-            f"https://restcountries.com/v3.1/name/{string}?fullText=true")
-        
-        country_data = country_data.json()
-
-        country_maps = country_data[0]['maps']['googleMaps']
-
-        print(country_maps)
+        country_maps = f"https://www.google.com/maps/search/?api=1&query={string}"
 
         return country_maps
     
