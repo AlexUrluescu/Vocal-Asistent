@@ -246,4 +246,9 @@ class Assistent():
             size = len(files)
 
             self.speak(f"You have {size} projects in the folder")
+
+        if task_index == 23:
+            self.speak("I will close this tab")
+
+            self.task_manager.close_tab()
    
