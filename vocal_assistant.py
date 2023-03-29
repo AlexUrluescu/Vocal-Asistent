@@ -151,7 +151,7 @@ class Assistent():
             self.task_manager.minimise()
 
         if task_index == 10:
-            self.speak("I will close the file")
+            self.speak("I will close the window")
             self.task_manager.close_file()
 
         if task_index == 11:
@@ -208,7 +208,7 @@ class Assistent():
         if task_index == 19:
             string = text.split(" ")[-1]
 
-            main, temperature, wind_speed = self.task_manager.weather(text)
+            main, temperature = self.task_manager.weather(text)
 
             if(main == "Clouds"):
                 main = "cloudy"
