@@ -142,6 +142,10 @@ class Task():
             print("a intrat in word")
             os.system("start winword")
 
+        if(string == "microsoft"):
+            print("a intrat in microsoft")
+            os.system("start msedge")
+
         else:
             print(f"a intrat in {string}")
             run(string)
