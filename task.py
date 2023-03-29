@@ -16,7 +16,7 @@ from datetime import date, datetime
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open my presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping', 'add', 'directory']
+        self.task_list = [assistant_name, "open my presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping', 'add', 'directory', "tab"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
         
@@ -341,3 +341,10 @@ class Task():
     
     def thank_you(self):
         terminal_print("Se executa functia thank you")
+
+    def close_tab(self):
+        self.keyboard.press(Key.ctrl)
+        self.keyboard.press("w")
+        self.keyboard.release(Key.ctrl)
+        self.keyboard.release("w")
+        
