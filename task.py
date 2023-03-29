@@ -156,6 +156,8 @@ class Task():
         if(string == "word"):
             os.system("start winword /w")
 
+    def new_word_file(self):
+        os.system("start winword /w")
      
     def minimise(self):
         pyautogui.keyDown("win")
