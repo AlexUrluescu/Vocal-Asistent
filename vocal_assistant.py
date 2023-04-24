@@ -189,11 +189,11 @@ class Assistent():
             self.speak(f"Details about {string}")
             self.task_manager.get_country(text)
 
-            # population, capital, region, subregion = self.task_manager.get_country(text)
+            population, capital, region, subregion = self.task_manager.get_country(text)
 
-            # self.speak(f"{string} is in {region}, exacty in {subregion}")
-            # sleep(0.3)
-            # self.speak(f"{string} has {population} milion of people, and the capital is {capital}")
+            self.speak(f"{string} is in {region}, exacty in {subregion}")
+            sleep(0.3)
+            self.speak(f"{string} has {population} milion of people, and the capital is {capital}")
 
         
         if task_index == 18:
@@ -251,4 +251,10 @@ class Assistent():
             self.speak("I will close this tab")
 
             self.task_manager.close_tab()
+
+        
+        if task_index == 24:
+            self.speak("I will open a new powerpoint file")
+
+            self.task_manager.new_powerpoint_file()
    
