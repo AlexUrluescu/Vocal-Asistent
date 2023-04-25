@@ -94,7 +94,7 @@ class Assistent():
             if size == 1:
                 file = list[0]
                 self.speak(f"You have {size} file in the folder")
-                self.speak(f"{file}")
+                self.speak(f"The name of the file is {file}")
                 os.system(f"start powerpnt /{leter} {path}/{files[0]}")
 
             else:
@@ -122,12 +122,12 @@ class Assistent():
         if task_index == 3:
             self.task_manager.previous_slide()
 
-        if task_index == 4:
-            string = text.split(" ")[-1]
+        # if task_index == 4:
+        #     string = text.split(" ")[-1]
 
-            temp = self.task_manager.get_temperature(text)
+        #     temp = self.task_manager.get_temperature(text)
 
-            self.speak(f"In {string} are {temp} degrees")
+        #     self.speak(f"In {string} are {temp} degrees")
 
         if task_index == 5:
             ora = self.task_manager.time()
@@ -205,21 +205,31 @@ class Assistent():
 
             webbrowser.open(country_maps)
 
-        if task_index == 19:
+        if task_index == 4:
             string = text.split(" ")[-1]
 
-            main, temperature = self.task_manager.weather(text)
+            weather_data = self.task_manager.weather(text)
 
-            if(main == "Clouds"):
-                main = "cloudy"
 
-            elif(main == "Mist"):
-                main = "misty"
+            if(weather_data):
 
-            elif(main == "Fog"):
-                main = "fogy"
+                temperature = round(int(((weather_data['main']['temp'])-32) * 5) / 9)
+                main = weather_data['weather'][0]['main']
+                if(main == "Clouds"):
+                        main = "cloudy"
 
-            self.speak(f"In {string} the weather is {main} and are {temperature} degrees")
+                elif(main == "Mist"):
+                        main = "misty"
+
+                elif(main == "Fog"):
+                        main = "fogy"
+
+                self.speak(f"In {string} the weather is {main}")
+                sleep(0.5)
+                self.speak(f"and are {temperature} degrees")
+            
+            else:
+                self.speak("Sorry, I dont't find the city")
 
         
         if task_index == 20:

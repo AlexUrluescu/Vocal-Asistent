@@ -16,9 +16,11 @@ from datetime import date, datetime
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open my presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping', 'add', 'directory', "tab"]
+        self.task_list = [assistant_name, "open my presentation", "next", "previous", "weather", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "focus", "maximise", "mode", "finish", "about", "maps", 'temperature', 'shopping', 'add', 'directory', "tab"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
+
+        self.task_list2 = [assistant_name, "open my presentation", "next", "previous", "weather"]
         
 
     def identify_task(self, text: str) -> int:
@@ -31,31 +33,7 @@ class Task():
         
         return -127
     
-    def shopping_list(self):
-        state = False
 
-        if(os.path.isfile("./shopping_list.txt") == False):
-            file = open("shopping_list.txt", "x")
-            print("s-a creat")
-
-            file.close()
-
-        elif(os.path.isfile("./shopping_list.txt")):
-            state = True
-            print("it's ready")
-
-        print('shopping list apelat')
-        return state
-    
-
-    def add_products(self, text):
-        string = text.split(" ")[-1]
-                
-        file = open("shopping_list.txt", "a")
-        file.write(f"{string}\n")
-
-        return string
-    
             
     def loadwindowslist(self, hwnd, topwindows):
         topwindows.append((hwnd, win32gui.GetWindowText(hwnd)))
@@ -114,6 +92,10 @@ class Task():
             if("edge" in lista[i]):
                 lista[i] = "microsoft"
                 print("am gasit edge")
+
+            if("WhatsApp" in lista[i]):
+                lista[i] = "whatsapp"
+                print('am gasit whatsapp')
         
             i=i+1
 
@@ -151,17 +133,6 @@ class Task():
             run(string)
 
 
-    def open_new_file(self, string):
-        string = string.split(" ")[-1]
-
-        if(string == "powerpoint"):
-            os.system("start powerpnt /B")
-
-        if(string == "word"):
-            os.system("start winword /w")
-
-    def new_word_file(self):
-        os.system("start winword /w")
      
     def minimise(self):
         pyautogui.keyDown("win")
@@ -238,92 +209,33 @@ class Task():
         self.keyboard.press(Key.up)
         self.keyboard.release(Key.up)
 
-    def get_temperature(self, string):
-
-        string = string.split(" ")[-1]
-
-        terminal_print("Se executa functia get_temperature")
-
-        api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
-        city = string
-
-        weather_data = requests.get(
-            f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}")
-        
-        data = weather_data.json()
-        print(data)
-        temp = data['main']['temp']
-        temp = int(temp) / 3.78
-        print(temp)
-
-        return int(temp)
     
     
     def weather(self, string):
-        city = string.split(" ")[-1]
-        print(f"Weather in {city}")
+        try:
 
-        api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
+            city = string.split(" ")[-1]
+            print(f"Weather in {city}")
 
-        weather_data = requests.get(
-            f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}")
-
-        weather_data = weather_data.json()
-
-        temperature = round(int(((weather_data['main']['temp'])-32) * 5) / 9)
-        main = weather_data['weather'][0]['main']
-
-        print(weather_data)
-        print(main)
-        print(temperature)
-    
-        return main, temperature
-
-    # def weather(self, text):
-    #     self.task_weather_manager()
-
-    def get_country(self, string):
-        string = string.split(" ")[-1]
-        print("se activeaza get_country")
-
-        # country_data = requests.get(
-        #     f"https://restcountries.com/v3.1/name/{string}?fullText=true")
+            api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
+            weather_data = requests.get(
+                    f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}")
+                
+            weather_data.raise_for_status()
         
-        # country_data = country_data.json()
-        # print(country_data)
+            weather_data = weather_data.json()
 
-        # population = str(country_data[0]['population'])
-        # if(len(population) == 9):
-        #     population = population[0:3]
-        # elif(len(population) == 8):
-        #     population = population[0:2]
-        
-        # elif(len(population) == 7):
-        #     population = population[0:1]
+            print(weather_data)
+            
+            return weather_data
 
-        # name = country_data[0]['name']['common']
-        # capital = country_data[0]['capital'][0]
-       
-        # subregion = country_data[0]['subregion']
- 
-        # print(country_data)
-        # print(population)
-        # print(name)
-        # print(capital)
-        # print(region)
-        # print(subregion)
+        except requests.exceptions.RequestException as error:
+            print(f'HTTP error occurred: {error}')
 
-        # return population, capital, region, subregion
+        except Exception as error:
+            print(f'Other error occurred: {error}')
+
     
-
-    def open_maps(self, string):
-        string = string.split(" ")[-1]
-
-        country_maps = f"https://www.google.com/maps/search/?api=1&query={string}"
-
-        return country_maps
-    
-
     def time(self):
         terminal_print("Se executa functia time")
         now = datetime.now()
@@ -342,9 +254,4 @@ class Task():
     def thank_you(self):
         terminal_print("Se executa functia thank you")
 
-    def close_tab(self):
-        self.keyboard.press(Key.ctrl)
-        self.keyboard.press("w")
-        self.keyboard.release(Key.ctrl)
-        self.keyboard.release("w")
         
