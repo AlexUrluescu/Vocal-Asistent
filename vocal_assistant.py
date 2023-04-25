@@ -17,6 +17,8 @@ class Assistent():
         self.gender = gender
         self.speech_speed = speech_speed
         self.engine_speak = pyttsx3.init()
+        self.voice = self.engine_speak.getProperty('voices')
+        self.engine_speak.setProperty('voice', self.voice[1].id)
         self.engine_speak.setProperty('rate', self.speech_speed)
         self.engine_keyboard = Controller()
         self.task_manager = task.Task(self.name.lower())
@@ -48,6 +50,7 @@ class Assistent():
             except Exception as e:
                 print("Exception: " + str(e))
                 said = "Sorry, could not undersand you"
+                self.speak("Sorry, could not undersand you")
 
         return said
 
@@ -122,88 +125,6 @@ class Assistent():
         if task_index == 3:
             self.task_manager.previous_slide()
 
-        # if task_index == 4:
-        #     string = text.split(" ")[-1]
-
-        #     temp = self.task_manager.get_temperature(text)
-
-        #     self.speak(f"In {string} are {temp} degrees")
-
-        if task_index == 5:
-            ora = self.task_manager.time()
-            self.speak(ora)
-
-
-        if task_index == 6:
-            data = self.task_manager.date()
-            self.speak(data)
-
-
-        if task_index == 7:
-            self.speak('You welcome')
-
-        if task_index == 8:
-            self.speak("I will open a new file")
-            self.task_manager.open_new_file(text)
-
-        if task_index == 9:
-            self.speak("I will minimize the window")
-            self.task_manager.minimise()
-
-        if task_index == 10:
-            self.speak("I will close the window")
-            self.task_manager.close_file()
-
-        if task_index == 11:
-            # say "create a new word file"
-            self.speak("I will open a new word file")
-            self.task_manager.new_word_file()
-
-      
-        if task_index == 12:
-            # self.task_manager.open_PowerPointfile(text)
-            self.speak("I will open the file")
-            self.task_manager.open(text)
-
-
-        if task_index == 13:
-            self.speak("Focus active")
-            self.task_manager.focus(text)
-
-
-        if task_index == 14:
-            self.speak("I will maximize the window")
-            self.task_manager.maximise()
-
-        if task_index == 15:
-            self.speak("I will active the presentation mode")
-            self.task_manager.presentation_mode() 
-
-        if task_index == 16:
-            self.speak("I will deactivate the presentation mode")
-            self.task_manager.finish_presentation()
-
-        if task_index == 17:
-            string = text.split(" ")[-1]
-            print(string)
-            self.speak(f"Details about {string}")
-            self.task_manager.get_country(text)
-
-            # population, capital, region, subregion = self.task_manager.get_country(text)
-
-            # self.speak(f"{string} is in {region}, exacty in {subregion}")
-            # sleep(0.3)
-            # self.speak(f"{string} has {population} milion of people, and the capital is {capital}")
-
-        
-        if task_index == 18:
-            string = text.split(" ")[-1]
-
-            self.speak(f"I will open maps for {string}")
-
-            country_maps = self.task_manager.open_maps(text)
-
-            webbrowser.open(country_maps)
 
         if task_index == 4:
             string = text.split(" ")[-1]
@@ -231,34 +152,53 @@ class Assistent():
             else:
                 self.speak("Sorry, I dont't find the city")
 
-        
-        if task_index == 20:
-            state = self.task_manager.shopping_list()
 
-            if(state):
-                self.speak("The shopping list it's ready")
+        if task_index == 5:
+            ora = self.task_manager.time()
+            self.speak(ora)
+
+
+        if task_index == 6:
+            data = self.task_manager.date()
+            self.speak(data)
+
+
+        if task_index == 7:
+            self.speak('You welcome')
             
-            else:
-                self.speak("The shopping list was created")
 
-            sleep(0.2)
-            self.speak("What do you want to add?")
+        if task_index == 8:
+            self.speak("I will minimize the window")
+            self.task_manager.minimise()
+            
 
-        
-        if task_index == 21:
-            string = self.task_manager.add_products(text)
+        if task_index == 9:
+            self.speak("I will close the window")
+            self.task_manager.close_file()
+
+      
+        if task_index == 10:
+            # self.task_manager.open_PowerPointfile(text)
+            self.speak("I will open the file")
+            self.task_manager.open(text)
+
+
+        if task_index == 11:
+            self.speak("Focus active")
+            self.task_manager.focus(text)
+
+
+        if task_index == 12:
+            self.speak("I will maximize the window")
+            self.task_manager.maximise()
+
+        if task_index == 13:
+            self.speak("I will active the presentation mode")
+            self.task_manager.presentation_mode() 
+
+        if task_index == 14:
+            self.speak("I will deactivate the presentation mode")
+            self.task_manager.finish_presentation()
 
             print(string)
             self.speak(f"{string} was added in your shopping list")
-
-        if task_index == 22:
-            files = self.task_manager.get_files()
-            size = len(files)
-
-            self.speak(f"You have {size} projects in the folder")
-
-        if task_index == 23:
-            self.speak("I will close this tab")
-
-            self.task_manager.close_tab()
-   

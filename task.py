@@ -2,7 +2,6 @@
 
 from util import terminal_print
 from AppOpener import run
-
 from pynput.keyboard import Key, Controller
 from time import sleep
 import os
@@ -16,7 +15,7 @@ from datetime import date, datetime
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open my presentation", "next", "previous", "weather", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "focus", "maximise", "mode", "finish", "about", "maps", 'temperature', 'shopping', 'add', 'directory', "tab"]
+        self.task_list = [assistant_name, "open my presentation", "next", "previous", "weather", "time", "date", 'thank you', "minimize", "close", "open", "focus", "maximize", "mode", "finish"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
 
@@ -33,8 +32,7 @@ class Task():
         
         return -127
     
-
-            
+       
     def loadwindowslist(self, hwnd, topwindows):
         topwindows.append((hwnd, win32gui.GetWindowText(hwnd)))
         
@@ -133,7 +131,6 @@ class Task():
             run(string)
 
 
-     
     def minimise(self):
         pyautogui.keyDown("win")
         pyautogui.keyDown("down")
@@ -210,7 +207,6 @@ class Task():
         self.keyboard.release(Key.up)
 
     
-    
     def weather(self, string):
         try:
 
@@ -239,7 +235,7 @@ class Task():
     def time(self):
         terminal_print("Se executa functia time")
         now = datetime.now()
-        ora = now.strftime("%H:%M:%S")
+        ora = now.strftime("%H:%M")
 
         return ora
     
