@@ -202,3 +202,6 @@ class Assistent():
 
             print(string)
             self.speak(f"{string} was added in your shopping list")
+
+        if task_index == 15:
+            self.speak("Goodbye everyone")

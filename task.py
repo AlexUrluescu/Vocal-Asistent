@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open my presentation", "next", "previous", "weather", "time", "date", 'thank you', "minimize", "close", "open", "focus", "maximize", "mode", "finish"]
+        self.task_list = [assistant_name, "open my presentation", "next", "previous", "weather", "time", "date", 'thank you', "minimize", "close", "open", "focus", "maximize", "mode", "finish", "goodbye"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
 
@@ -253,4 +253,6 @@ class Task():
     def thank_you(self):
         logging.debug("Se executa functia thank you")
 
-        
+    
+    def goodbye(self):
+        logging.debug("Se executa functia goodbye")
