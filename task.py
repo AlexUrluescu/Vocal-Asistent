@@ -11,6 +11,9 @@ import pyautogui
 import requests
 import os.path
 from datetime import date, datetime
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
 
 class Task():
 
@@ -23,9 +26,9 @@ class Task():
         
 
     def identify_task(self, text: str) -> int:
-        terminal_print("I am here")
-        terminal_print(text)
-        terminal_print(self.task_list)
+        logging.debug("I am here")
+        logging.debug(text)
+        logging.debug(self.task_list)
         for task_index, task in enumerate(self.task_list):
             if task in text:
                 return task_index
@@ -46,8 +49,8 @@ class Task():
             sappname = str(hwin[1])
             if swinname in sappname.lower():
                 nhwnd = hwin[0]
-                print(type(nhwnd))
-                print(">>> Found: " + str(nhwnd) + ": " + sappname)
+                logging.debug(type(nhwnd))
+                logging.debug(">>> Found: " + str(nhwnd) + ": " + sappname)
                 if(bshow):
                     win32gui.ShowWindow(nhwnd, 5)
                     shell = win32com.client.Dispatch("WScript.Shell")
@@ -65,69 +68,69 @@ class Task():
 
         for w in windows:
             lista.append(w.window_text().lower())
-            print(w.window_text())
+            logging.debug(w.window_text())
 
-        print(f"{lista} nr 1")
-        print(string)
+        logging.debug(f"{lista} nr 1")
+        logging.debug(string)
 
         # ---------- change the name of word and powerpoint -----------
         i=0
 
         while i < len(lista):
-            print("a intrat in while")
+            logging.debug("a intrat in while")
             if("powerpoint" in lista[i]):
                 lista[i] = "powerpoint"
-                print("am gasit powerpoint")
+                logging.debug("am gasit powerpoint")
 
             if("word" in lista[i]):
                 lista[i] = "word"
-                print("am gasit word")
+                logging.debug("am gasit word")
 
             if("visual studio code" in lista[i]):
                 lista[i] = "code"
-                print("am gasit visual studio code")
+                logging.debug("am gasit visual studio code")
 
             if("edge" in lista[i]):
                 lista[i] = "microsoft"
-                print("am gasit edge")
+                logging.debug("am gasit edge")
 
             if("WhatsApp" in lista[i]):
                 lista[i] = "whatsapp"
-                print('am gasit whatsapp')
+                logging.debug('am gasit whatsapp')
         
             i=i+1
 
         # ---------------------------------------------------
 
-        print(f"{lista} nr 2")
+        logging.debug(f"{lista} nr 2")
 
         if string in lista:
             self.findandshowwindow(string, True, True)
-            print(f"{string} exist")
+            logging.debug(f"{string} exist")
 
         else:
-            print("doesn't exist")
+            logging.debug("doesn't exist")
 
     
     def open(self, string):
         
         string = string.split(" ")[-1]
-        print("se executa functia open")
+        logging.debug("se executa functia open")
 
         if(string == "powerpoint"):
-            print("a intrat in powerpoint")
+            logging.debug("a intrat in powerpoint")
             os.system("start powerpnt")
 
         if(string == "word"):
-            print("a intrat in word")
+            prilogging.debugnt("a intrat in word")
             os.system("start winword")
 
         if(string == "microsoft"):
-            print("a intrat in microsoft")
+            logging.debug("a intrat in microsoft")
             os.system("start msedge")
 
         else:
-            print(f"a intrat in {string}")
+            logging.debug(f"a intrat in {string}")
             run(string)
 
 
@@ -146,24 +149,24 @@ class Task():
 
 
     def open_my_presentation(self):
-        print("open_mt_presentation is activ")
+        logging.debug("open_mt_presentation is activ")
 
         path = "C:\projectsPowerPoint"
         files = os.listdir(path)
-        list = []
+        lista = []
 
         for file in files:
             size = len(file)
             file = file[:size - 5]
-            print(file)
+            logging.debug(file)
             if "_" in file:
                 file = file.replace("_", " ")
-            list.append(file)
+            lista.append(file)
 
-        print(files)
-        print(list)
+        logging.debug(files)
+        logging.debug(lista)
 
-        return list, path, files
+        return lista, path, files
     
 
     def presentation_mode(self):
@@ -176,24 +179,24 @@ class Task():
     def finish_presentation(self):
         pyautogui.keyDown("esc")
         pyautogui.keyUp("esc")
-        print("finish a mers")
+        logging.debug("finish a mers")
 
     
     def close_file(self):
-        terminal_print("Se executa functia close_file")
+        logging.debug("Se executa functia close_file")
         sleep(1)
 
         # combination = {Key.alt, Key.f4}
-        print("se inchide")
+        logging.debug("se inchide")
         self.keyboard.press(Key.alt)
         self.keyboard.press(Key.f4)
         self.keyboard.release(Key.alt)
         self.keyboard.release(Key.f4)
-        print("s-a inchis")
+        logging.debug("s-a inchis")
 
     
     def next_slide(self):
-        terminal_print("Se executa functia next_slide")
+        logging.debug("Se executa functia next_slide")
         sleep(1)
         
         self.keyboard.press(Key.down)
@@ -201,7 +204,7 @@ class Task():
 
 
     def previous_slide(self):
-        terminal_print("Se executa functia previous_slide")
+        logging.debug("Se executa functia previous_slide")
         sleep(1)
         self.keyboard.press(Key.up)
         self.keyboard.release(Key.up)
@@ -211,7 +214,7 @@ class Task():
         try:
 
             city = string.split(" ")[-1]
-            print(f"Weather in {city}")
+            logging.debug(f"Weather in {city}")
 
             api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
             weather_data = requests.get(
@@ -221,19 +224,19 @@ class Task():
         
             weather_data = weather_data.json()
 
-            print(weather_data)
+            logging.debug(weather_data)
             
             return weather_data
 
         except requests.exceptions.RequestException as error:
-            print(f'HTTP error occurred: {error}')
+            logging.debug(f'HTTP error occurred: {error}')
 
         except Exception as error:
-            print(f'Other error occurred: {error}')
+            logging.debug(f'Other error occurred: {error}')
 
     
     def time(self):
-        terminal_print("Se executa functia time")
+        logging.debug("Se executa functia time")
         now = datetime.now()
         ora = now.strftime("%H:%M")
 
@@ -241,13 +244,13 @@ class Task():
     
 
     def date(self):
-        terminal_print("Se executa functia date")
+        logging.debug("Se executa functia date")
         data = date.today()
 
         return data
 
     
     def thank_you(self):
-        terminal_print("Se executa functia thank you")
+        logging.debug("Se executa functia thank you")
 
         

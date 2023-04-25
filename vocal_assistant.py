@@ -90,12 +90,12 @@ class Assistent():
             self.speak('What can I do for you?')
         
         if task_index == 1:
-            list, path, files = self.task_manager.open_my_presentation()
-            size = len(list)
+            lista, path, files = self.task_manager.open_my_presentation()
+            size = len(lista)
             leter = "C"
 
             if size == 1:
-                file = list[0]
+                file = lista[0]
                 self.speak(f"You have {size} file in the folder")
                 self.speak(f"The name of the file is {file}")
                 os.system(f"start powerpnt /{leter} {path}/{files[0]}")
@@ -111,11 +111,11 @@ class Assistent():
             print(type(text))
             
             if text == "1":
-                self.speak(f"I will open {list[0]}")
+                self.speak(f"I will open {lista[0]}")
                 os.system(f"start powerpnt /{leter} {path}/{files[0]}")
             
             if text == "2":
-                self.speak(f"I will open {list[1]}")
+                self.speak(f"I will open {lista[1]}")
                 os.system(f"start powerpnt /{leter} {path}/{files[1]}")
 
         
