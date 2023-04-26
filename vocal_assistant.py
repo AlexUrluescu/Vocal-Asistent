@@ -18,8 +18,8 @@ class Assistent():
         self.gender = gender
         self.speech_speed = speech_speed
         self.engine_speak = pyttsx3.init()
-        self.voice = self.engine_speak.getProperty('voices')
-        self.engine_speak.setProperty('voice', self.voice[1].id)
+        # self.voice = self.engine_speak.getProperty('voices')
+        # self.engine_speak.setProperty('voice', self.voice[1].id)
         self.engine_speak.setProperty('rate', self.speech_speed)
         self.engine_keyboard = Controller()
         self.task_manager = task.Task(self.name.lower())
@@ -199,9 +199,6 @@ class Assistent():
         if task_index == 14:
             self.speak("I will deactivate the presentation mode")
             self.task_manager.finish_presentation()
-
-            logging.debug(string)
-            self.speak(f"{string} was added in your shopping list")
 
         if task_index == 15:
             self.speak("Goodbye everyone")
