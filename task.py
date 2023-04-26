@@ -1,6 +1,5 @@
 """Class that models the tasks the assistant can do"""
 
-from util import terminal_print
 from AppOpener import run
 from pynput.keyboard import Key, Controller
 from time import sleep
@@ -122,7 +121,7 @@ class Task():
             os.system("start powerpnt")
 
         if(string == "word"):
-            prilogging.debugnt("a intrat in word")
+            logging.debugnt("a intrat in word")
             os.system("start winword")
 
         if(string == "microsoft"):

@@ -5,11 +5,12 @@ import pyttsx3
 import os
 from pynput.keyboard import Key, Controller
 from AppOpener import run
-from util import terminal_print
 import task 
 from datetime import date, datetime
 import webbrowser
-# import weather
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
 
 class Assistent():
     def __init__(self, name: str, gender: str, speech_speed: int = 100):
@@ -46,7 +47,7 @@ class Assistent():
 
             try:
                 said = r.recognize_google(audio)
-                terminal_print(said)
+                logging.debug(said)
             except Exception as e:
                 print("Exception: " + str(e))
                 said = "Sorry, could not undersand you"
@@ -66,22 +67,22 @@ class Assistent():
     
     def change_gender(self, new_gender):
         self.gender = new_gender
-        terminal_print(f"The gender of the assitent was changed to {new_gender}")
+        logging.debug(f"The gender of the assitent was changed to {new_gender}")
     
     
     def get_gender(self):
-        terminal_print(f"The gender of the assistent {self.name} is {self.gender}")
+        logging.debug(f"The gender of the assistent {self.name} is {self.gender}")
         return self.gender
     
     
     def change_speech_speed(self, new_speed):
         self.speech_speed = new_speed
         self.engine_speak.setProperty('rate', self.speech_speed)
-        terminal_print(f"The speed was changet to  + {new_speed}")
+        logging.debug(f"The speed was changet to  + {new_speed}")
     
     
     def get_speech_speed(self):
-        terminal_print(f"The speed is {self.speech_speed}")
+        logging.debug(f"The speed is {self.speech_speed}")
         return self.speech_speed
     
 
@@ -178,7 +179,6 @@ class Assistent():
 
       
         if task_index == 10:
-            # self.task_manager.open_PowerPointfile(text)
             self.speak("I will open the file")
             self.task_manager.open(text)
 
@@ -200,7 +200,7 @@ class Assistent():
             self.speak("I will deactivate the presentation mode")
             self.task_manager.finish_presentation()
 
-            print(string)
+            logging.debug(string)
             self.speak(f"{string} was added in your shopping list")
 
         if task_index == 15:
