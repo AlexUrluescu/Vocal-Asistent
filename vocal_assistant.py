@@ -51,7 +51,7 @@ class Assistent():
             except Exception as e:
                 print("Exception: " + str(e))
                 said = "Sorry, could not undersand you"
-                self.speak("Sorry, could not undersand you")
+                # self.speak("Sorry, could not undersand you")
 
         return said
 

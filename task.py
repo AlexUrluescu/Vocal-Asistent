@@ -196,7 +196,7 @@ class Task():
     
     def next_slide(self):
         logging.debug("Se executa functia next_slide")
-        sleep(1)
+        # sleep(1)
         
         self.keyboard.press(Key.down)
         self.keyboard.release(Key.down)
@@ -204,7 +204,7 @@ class Task():
 
     def previous_slide(self):
         logging.debug("Se executa functia previous_slide")
-        sleep(1)
+        # sleep(1)
         self.keyboard.press(Key.up)
         self.keyboard.release(Key.up)
 
