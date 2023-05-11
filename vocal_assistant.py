@@ -200,5 +200,10 @@ class Assistent():
             self.speak("I will deactivate the presentation mode")
             self.task_manager.finish_presentation()
 
+        
         if task_index == 15:
+            # self.speak("I will open notepad")
+            self.task_manager.say_something()
+
+        if task_index == 16:
             self.speak("Goodbye everyone")
