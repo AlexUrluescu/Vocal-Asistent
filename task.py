@@ -1,8 +1,6 @@
 """Class that models the tasks the assistant can do"""
 
-from util import terminal_print
 from AppOpener import run
-
 from pynput.keyboard import Key, Controller
 from time import sleep
 import os
@@ -12,51 +10,31 @@ import pyautogui
 import requests
 import os.path
 from datetime import date, datetime
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
 
 class Task():
 
     def __init__(self, assistant_name):
-        self.task_list = [assistant_name, "open my presentation", "next", "previous", "temperature", "time", "date", 'thank you', "open new", "minimise", "close", "new word file", "open", "active", "maximise", "mode", "finish", "about", "maps", 'weather', 'shopping', 'add', 'directory', "tab"]
+        self.task_list = [assistant_name, "open my presentation", "next", "previous", "weather", "time", "date", 'thank you', "minimize", "close", "open", "focus", "maximize", "mode", "finish", "say", "goodbye"]
         self.assistant_name = assistant_name
         self.keyboard = Controller()
+
+        self.task_list2 = [assistant_name, "open my presentation", "next", "previous", "weather"]
         
 
     def identify_task(self, text: str) -> int:
-        terminal_print("I am here")
-        terminal_print(text)
-        terminal_print(self.task_list)
+        logging.debug("I am here")
+        logging.debug(text)
+        logging.debug(self.task_list)
         for task_index, task in enumerate(self.task_list):
             if task in text:
                 return task_index
         
         return -127
     
-    def shopping_list(self):
-        state = False
-
-        if(os.path.isfile("./shopping_list.txt") == False):
-            file = open("shopping_list.txt", "x")
-            print("s-a creat")
-
-            file.close()
-
-        elif(os.path.isfile("./shopping_list.txt")):
-            state = True
-            print("it's ready")
-
-        print('shopping list apelat')
-        return state
-    
-
-    def add_products(self, text):
-        string = text.split(" ")[-1]
-                
-        file = open("shopping_list.txt", "a")
-        file.write(f"{string}\n")
-
-        return string
-    
-            
+       
     def loadwindowslist(self, hwnd, topwindows):
         topwindows.append((hwnd, win32gui.GetWindowText(hwnd)))
         
@@ -70,8 +48,8 @@ class Task():
             sappname = str(hwin[1])
             if swinname in sappname.lower():
                 nhwnd = hwin[0]
-                print(type(nhwnd))
-                print(">>> Found: " + str(nhwnd) + ": " + sappname)
+                logging.debug(type(nhwnd))
+                logging.debug(">>> Found: " + str(nhwnd) + ": " + sappname)
                 if(bshow):
                     win32gui.ShowWindow(nhwnd, 5)
                     shell = win32com.client.Dispatch("WScript.Shell")
@@ -89,80 +67,73 @@ class Task():
 
         for w in windows:
             lista.append(w.window_text().lower())
-            print(w.window_text())
+            logging.debug(w.window_text())
 
-        print(f"{lista} nr 1")
-        print(string)
+        logging.debug(f"{lista} nr 1")
+        logging.debug(string)
 
         # ---------- change the name of word and powerpoint -----------
         i=0
 
         while i < len(lista):
-            print("a intrat in while")
+            logging.debug("a intrat in while")
             if("powerpoint" in lista[i]):
                 lista[i] = "powerpoint"
-                print("am gasit powerpoint")
+                logging.debug("am gasit powerpoint")
 
             if("word" in lista[i]):
                 lista[i] = "word"
-                print("am gasit word")
+                logging.debug("am gasit word")
 
             if("visual studio code" in lista[i]):
                 lista[i] = "code"
-                print("am gasit visual studio code")
+                logging.debug("am gasit visual studio code")
 
             if("edge" in lista[i]):
                 lista[i] = "microsoft"
-                print("am gasit edge")
+                logging.debug("am gasit edge")
+
+            if("WhatsApp" in lista[i]):
+                lista[i] = "whatsapp"
+                logging.debug('am gasit whatsapp')
         
             i=i+1
 
         # ---------------------------------------------------
 
-        print(f"{lista} nr 2")
+        logging.debug(f"{lista} nr 2")
 
         if string in lista:
             self.findandshowwindow(string, True, True)
-            print(f"{string} exist")
+            logging.debug(f"{string} exist")
 
         else:
-            print("doesn't exist")
+            logging.debug("doesn't exist")
 
     
     def open(self, string):
         
         string = string.split(" ")[-1]
-        print("se executa functia open")
+        logging.debug("se executa functia open")
 
         if(string == "powerpoint"):
-            print("a intrat in powerpoint")
+            logging.debug("a intrat in powerpoint")
             os.system("start powerpnt")
 
         if(string == "word"):
-            print("a intrat in word")
+            logging.debugnt("a intrat in word")
             os.system("start winword")
 
         if(string == "microsoft"):
-            print("a intrat in microsoft")
+            logging.debug("a intrat in microsoft")
             os.system("start msedge")
 
         else:
-            print(f"a intrat in {string}")
+            logging.debug(f"a intrat in {string}")
             run(string)
+            logging.debug("notepad")
 
 
-    def open_new_file(self, string):
-        string = string.split(" ")[-1]
-
-        if(string == "powerpoint"):
-            os.system("start powerpnt /B")
-
-        if(string == "word"):
-            os.system("start winword /w")
-
-    def new_word_file(self):
-        os.system("start winword /w")
-     
     def minimise(self):
         pyautogui.keyDown("win")
         pyautogui.keyDown("down")
@@ -178,24 +149,24 @@ class Task():
 
 
     def open_my_presentation(self):
-        print("open_mt_presentation is activ")
+        logging.debug("open_mt_presentation is activ")
 
         path = "C:\projectsPowerPoint"
         files = os.listdir(path)
-        list = []
+        lista = []
 
         for file in files:
             size = len(file)
             file = file[:size - 5]
-            print(file)
+            logging.debug(file)
             if "_" in file:
                 file = file.replace("_", " ")
-            list.append(file)
+            lista.append(file)
 
-        print(files)
-        print(list)
+        logging.debug(files)
+        logging.debug(lista)
 
-        return list, path, files
+        return lista, path, files
     
 
     def presentation_mode(self):
@@ -208,143 +179,182 @@ class Task():
     def finish_presentation(self):
         pyautogui.keyDown("esc")
         pyautogui.keyUp("esc")
-        print("finish a mers")
+        logging.debug("finish a mers")
 
     
     def close_file(self):
-        terminal_print("Se executa functia close_file")
+        logging.debug("Se executa functia close_file")
         sleep(1)
 
         # combination = {Key.alt, Key.f4}
-        print("se inchide")
+        logging.debug("se inchide")
         self.keyboard.press(Key.alt)
         self.keyboard.press(Key.f4)
         self.keyboard.release(Key.alt)
         self.keyboard.release(Key.f4)
-        print("s-a inchis")
+        logging.debug("s-a inchis")
 
     
     def next_slide(self):
-        terminal_print("Se executa functia next_slide")
-        sleep(1)
+        logging.debug("Se executa functia next_slide")
+        # sleep(1)
         
         self.keyboard.press(Key.down)
         self.keyboard.release(Key.down)
 
 
     def previous_slide(self):
-        terminal_print("Se executa functia previous_slide")
-        sleep(1)
+        logging.debug("Se executa functia previous_slide")
+        # sleep(1)
         self.keyboard.press(Key.up)
         self.keyboard.release(Key.up)
 
-    def get_temperature(self, string):
-
-        string = string.split(" ")[-1]
-
-        terminal_print("Se executa functia get_temperature")
-
-        api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
-        city = string
-
-        weather_data = requests.get(
-            f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}")
-        
-        data = weather_data.json()
-        print(data)
-        temp = data['main']['temp']
-        temp = int(temp) / 3.78
-        print(temp)
-
-        return int(temp)
-    
     
     def weather(self, string):
-        city = string.split(" ")[-1]
-        print(f"Weather in {city}")
+        try:
 
-        api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
+            city = string.split(" ")[-1]
+            logging.debug(f"Weather in {city}")
 
-        weather_data = requests.get(
-            f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}")
-
-        weather_data = weather_data.json()
-
-        temperature = round(int(((weather_data['main']['temp'])-32) * 5) / 9)
-        main = weather_data['weather'][0]['main']
-
-        print(weather_data)
-        print(main)
-        print(temperature)
-    
-        return main, temperature
-
-    # def weather(self, text):
-    #     self.task_weather_manager()
-
-    def get_country(self, string):
-        string = string.split(" ")[-1]
-        print("se activeaza get_country")
-
-        # country_data = requests.get(
-        #     f"https://restcountries.com/v3.1/name/{string}?fullText=true")
+            api_key = "55c8bfaf9fff464f3bf6f3c283186dc6"
+            weather_data = requests.get(
+                    f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}")
+                
+            weather_data.raise_for_status()
         
-        # country_data = country_data.json()
-        # print(country_data)
+            weather_data = weather_data.json()
 
-        # population = str(country_data[0]['population'])
-        # if(len(population) == 9):
-        #     population = population[0:3]
-        # elif(len(population) == 8):
-        #     population = population[0:2]
-        
-        # elif(len(population) == 7):
-        #     population = population[0:1]
+            logging.debug(weather_data)
+            
+            return weather_data
 
-        # name = country_data[0]['name']['common']
-        # capital = country_data[0]['capital'][0]
-       
-        # subregion = country_data[0]['subregion']
- 
-        # print(country_data)
-        # print(population)
-        # print(name)
-        # print(capital)
-        # print(region)
-        # print(subregion)
+        except requests.exceptions.RequestException as error:
+            logging.debug(f'HTTP error occurred: {error}')
 
-        # return population, capital, region, subregion
+        except Exception as error:
+            logging.debug(f'Other error occurred: {error}')
+
     
-
-    def open_maps(self, string):
-        string = string.split(" ")[-1]
-
-        country_maps = f"https://www.google.com/maps/search/?api=1&query={string}"
-
-        return country_maps
-    
-
     def time(self):
-        terminal_print("Se executa functia time")
+        logging.debug("Se executa functia time")
         now = datetime.now()
-        ora = now.strftime("%H:%M:%S")
+        ora = now.strftime("%H:%M")
 
         return ora
     
 
     def date(self):
-        terminal_print("Se executa functia date")
+        logging.debug("Se executa functia date")
         data = date.today()
 
         return data
 
     
     def thank_you(self):
-        terminal_print("Se executa functia thank you")
+        logging.debug("Se executa functia thank you")
 
-    def close_tab(self):
-        self.keyboard.press(Key.ctrl)
-        self.keyboard.press("w")
-        self.keyboard.release(Key.ctrl)
-        self.keyboard.release("w")
-        
+    
+    def say_something(self):
+        logging.debug("Se executa functia say")
+        run("notepad")
+
+        sleep(2)
+
+        pyautogui.keyDown("T")
+        pyautogui.keyUp("T")
+        pyautogui.keyDown("h")
+        pyautogui.keyUp("h")
+        pyautogui.keyDown("a")
+        pyautogui.keyUp("a")
+        pyautogui.keyDown("n")
+        pyautogui.keyUp("n")
+        pyautogui.keyDown("k")
+        pyautogui.keyUp("k")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("y")
+        pyautogui.keyUp("y")
+        pyautogui.keyDown("o")
+        pyautogui.keyUp("o")
+        pyautogui.keyDown("u")
+        pyautogui.keyUp("u")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("f")
+        pyautogui.keyUp("f")
+        pyautogui.keyDown("o")
+        pyautogui.keyUp("o")
+        pyautogui.keyDown("r")
+        pyautogui.keyUp("r")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("w")
+        pyautogui.keyUp("w")
+        pyautogui.keyDown("a")
+        pyautogui.keyUp("a")
+        pyautogui.keyDown("t")
+        pyautogui.keyUp("t")
+        pyautogui.keyDown("c")
+        pyautogui.keyUp("c")
+        pyautogui.keyDown("h")
+        pyautogui.keyUp("h")
+        pyautogui.keyDown("i")
+        pyautogui.keyUp("i")
+        pyautogui.keyDown("n")
+        pyautogui.keyUp("n")
+        pyautogui.keyDown("g")
+        pyautogui.keyUp("g")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("m")
+        pyautogui.keyUp("m")
+        pyautogui.keyDown("e")
+        pyautogui.keyUp("e")
+        pyautogui.keyDown(".")
+        pyautogui.keyUp(".")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("I")
+        pyautogui.keyUp("I")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("s")
+        pyautogui.keyUp("s")
+        pyautogui.keyDown("e")
+        pyautogui.keyUp("e")
+        pyautogui.keyDown("e")
+        pyautogui.keyUp("e")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("y")
+        pyautogui.keyUp("y")
+        pyautogui.keyDown("o")
+        pyautogui.keyUp("o")
+        pyautogui.keyDown("u")
+        pyautogui.keyUp("u")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("n")
+        pyautogui.keyUp("n")
+        pyautogui.keyDown("e")
+        pyautogui.keyUp("e")
+        pyautogui.keyDown("x")
+        pyautogui.keyUp("x")
+        pyautogui.keyDown("t")
+        pyautogui.keyUp("t")
+        pyautogui.keyDown(" ")
+        pyautogui.keyUp(" ")
+        pyautogui.keyDown("y")
+        pyautogui.keyUp("y")
+        pyautogui.keyDown("e")
+        pyautogui.keyUp("e")
+        pyautogui.keyDown("a")
+        pyautogui.keyUp("a")
+        pyautogui.keyDown("r")
+        pyautogui.keyUp("r")
+        pyautogui.keyDown("!")
+        pyautogui.keyUp("!")
+
+    
+    def goodbye(self):
+        logging.debug("Se executa functia goodbye")

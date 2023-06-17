@@ -5,11 +5,12 @@ import pyttsx3
 import os
 from pynput.keyboard import Key, Controller
 from AppOpener import run
-from util import terminal_print
 import task 
 from datetime import date, datetime
 import webbrowser
-# import weather
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
 
 class Assistent():
     def __init__(self, name: str, gender: str, speech_speed: int = 100):
@@ -17,6 +18,8 @@ class Assistent():
         self.gender = gender
         self.speech_speed = speech_speed
         self.engine_speak = pyttsx3.init()
+        # self.voice = self.engine_speak.getProperty('voices')
+        # self.engine_speak.setProperty('voice', self.voice[1].id)
         self.engine_speak.setProperty('rate', self.speech_speed)
         self.engine_keyboard = Controller()
         self.task_manager = task.Task(self.name.lower())
@@ -44,10 +47,11 @@ class Assistent():
 
             try:
                 said = r.recognize_google(audio)
-                terminal_print(said)
+                logging.debug(said)
             except Exception as e:
                 print("Exception: " + str(e))
                 said = "Sorry, could not undersand you"
+                # self.speak("Sorry, could not undersand you")
 
         return said
 
@@ -63,22 +67,22 @@ class Assistent():
     
     def change_gender(self, new_gender):
         self.gender = new_gender
-        terminal_print(f"The gender of the assitent was changed to {new_gender}")
+        logging.debug(f"The gender of the assitent was changed to {new_gender}")
     
     
     def get_gender(self):
-        terminal_print(f"The gender of the assistent {self.name} is {self.gender}")
+        logging.debug(f"The gender of the assistent {self.name} is {self.gender}")
         return self.gender
     
     
     def change_speech_speed(self, new_speed):
         self.speech_speed = new_speed
         self.engine_speak.setProperty('rate', self.speech_speed)
-        terminal_print(f"The speed was changet to  + {new_speed}")
+        logging.debug(f"The speed was changet to  + {new_speed}")
     
     
     def get_speech_speed(self):
-        terminal_print(f"The speed is {self.speech_speed}")
+        logging.debug(f"The speed is {self.speech_speed}")
         return self.speech_speed
     
 
@@ -87,14 +91,14 @@ class Assistent():
             self.speak('What can I do for you?')
         
         if task_index == 1:
-            list, path, files = self.task_manager.open_my_presentation()
-            size = len(list)
+            lista, path, files = self.task_manager.open_my_presentation()
+            size = len(lista)
             leter = "C"
 
             if size == 1:
-                file = list[0]
+                file = lista[0]
                 self.speak(f"You have {size} file in the folder")
-                self.speak(f"{file}")
+                self.speak(f"The name of the file is {file}")
                 os.system(f"start powerpnt /{leter} {path}/{files[0]}")
 
             else:
@@ -108,11 +112,11 @@ class Assistent():
             print(type(text))
             
             if text == "1":
-                self.speak(f"I will open {list[0]}")
+                self.speak(f"I will open {lista[0]}")
                 os.system(f"start powerpnt /{leter} {path}/{files[0]}")
             
             if text == "2":
-                self.speak(f"I will open {list[1]}")
+                self.speak(f"I will open {lista[1]}")
                 os.system(f"start powerpnt /{leter} {path}/{files[1]}")
 
         
@@ -122,12 +126,33 @@ class Assistent():
         if task_index == 3:
             self.task_manager.previous_slide()
 
+
         if task_index == 4:
             string = text.split(" ")[-1]
 
-            temp = self.task_manager.get_temperature(text)
+            weather_data = self.task_manager.weather(text)
 
-            self.speak(f"In {string} are {temp} degrees")
+
+            if(weather_data):
+
+                temperature = round(int(((weather_data['main']['temp'])-32) * 5) / 9)
+                main = weather_data['weather'][0]['main']
+                if(main == "Clouds"):
+                        main = "cloudy"
+
+                elif(main == "Mist"):
+                        main = "misty"
+
+                elif(main == "Fog"):
+                        main = "fogy"
+
+                self.speak(f"In {string} the weather is {main}")
+                sleep(0.5)
+                self.speak(f"and are {temperature} degrees")
+            
+            else:
+                self.speak("Sorry, I dont't find the city")
+
 
         if task_index == 5:
             ora = self.task_manager.time()
@@ -141,114 +166,44 @@ class Assistent():
 
         if task_index == 7:
             self.speak('You welcome')
+            
 
         if task_index == 8:
-            self.speak("I will open a new file")
-            self.task_manager.open_new_file(text)
-
-        if task_index == 9:
             self.speak("I will minimize the window")
             self.task_manager.minimise()
+            
 
-        if task_index == 10:
+        if task_index == 9:
             self.speak("I will close the window")
             self.task_manager.close_file()
 
-        if task_index == 11:
-            # say "create a new word file"
-            self.speak("I will open a new word file")
-            self.task_manager.new_word_file()
-
       
-        if task_index == 12:
-            # self.task_manager.open_PowerPointfile(text)
+        if task_index == 10:
             self.speak("I will open the file")
             self.task_manager.open(text)
 
 
-        if task_index == 13:
+        if task_index == 11:
             self.speak("Focus active")
             self.task_manager.focus(text)
 
 
-        if task_index == 14:
+        if task_index == 12:
             self.speak("I will maximize the window")
             self.task_manager.maximise()
 
-        if task_index == 15:
+        if task_index == 13:
             self.speak("I will active the presentation mode")
             self.task_manager.presentation_mode() 
 
-        if task_index == 16:
+        if task_index == 14:
             self.speak("I will deactivate the presentation mode")
             self.task_manager.finish_presentation()
 
-        if task_index == 17:
-            string = text.split(" ")[-1]
-            print(string)
-            self.speak(f"Details about {string}")
-            self.task_manager.get_country(text)
-
-            # population, capital, region, subregion = self.task_manager.get_country(text)
-
-            # self.speak(f"{string} is in {region}, exacty in {subregion}")
-            # sleep(0.3)
-            # self.speak(f"{string} has {population} milion of people, and the capital is {capital}")
-
         
-        if task_index == 18:
-            string = text.split(" ")[-1]
+        if task_index == 15:
+            # self.speak("I will open notepad")
+            self.task_manager.say_something()
 
-            self.speak(f"I will open maps for {string}")
-
-            country_maps = self.task_manager.open_maps(text)
-
-            webbrowser.open(country_maps)
-
-        if task_index == 19:
-            string = text.split(" ")[-1]
-
-            main, temperature = self.task_manager.weather(text)
-
-            if(main == "Clouds"):
-                main = "cloudy"
-
-            elif(main == "Mist"):
-                main = "misty"
-
-            elif(main == "Fog"):
-                main = "fogy"
-
-            self.speak(f"In {string} the weather is {main} and are {temperature} degrees")
-
-        
-        if task_index == 20:
-            state = self.task_manager.shopping_list()
-
-            if(state):
-                self.speak("The shopping list it's ready")
-            
-            else:
-                self.speak("The shopping list was created")
-
-            sleep(0.2)
-            self.speak("What do you want to add?")
-
-        
-        if task_index == 21:
-            string = self.task_manager.add_products(text)
-
-            print(string)
-            self.speak(f"{string} was added in your shopping list")
-
-        if task_index == 22:
-            files = self.task_manager.get_files()
-            size = len(files)
-
-            self.speak(f"You have {size} projects in the folder")
-
-        if task_index == 23:
-            self.speak("I will close this tab")
-
-            self.task_manager.close_tab()
-   
+        if task_index == 16:
+            self.speak("Goodbye everyone")
